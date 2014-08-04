@@ -9,3 +9,5 @@ srun300 client for Henan University of Techonlogy
 安装：解压即可。windows用户请直接运行client.exe. linux用户请使用如下命令:
   java -jar client.jar
 注意：无法运行的请自行安装jre或jdk. 也可以直接将jre解压至安装目录.
+
+如有疑问请邮件:szq921@gmail.com
