@@ -1,10 +1,15 @@
 package client.util;
 
 public class Global {
-	public static final String version = " v0.1";
+	public static final String version = " v0.1.1";
 	
+	/*
+	 * 类似C语言中的条件编译,如果forEXE为真表明当前编译目的是为了用exe4j包装成exe文件, 为假则不是.
+	 * 区别在于client.util.ProPertyRW中对file路径的设置不同
+	 */
+	public static final boolean forEXE = false;
 	
-	public static final String PROPERTYFILE = "./date.properties";
+	public static final String PROPERTYFILE = "date.properties";
 	public static final String USERNAME = "username";
 	public static final String PASSWORD = "password";
 	public static final String KEY = "key";

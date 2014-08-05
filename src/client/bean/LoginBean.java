@@ -1,13 +1,9 @@
 
 package client.bean;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.Vector;
 
 import client.exception.GetMACFailException;
-import client.util.IPConverter;
-import client.util.MACGetter;
 import client.util.PropertyRW;
 
 public class LoginBean {
@@ -27,7 +23,8 @@ public class LoginBean {
 	private String cguid;
 	private Vector<String> keys;
 	
-	public LoginBean(String _username, String _password) throws GetMACFailException{
+	public LoginBean(String _username, String _password, String mac, String ip)
+			throws GetMACFailException{
 		setAction("login");
 		setUsername(_username);
 		setPassword(_password);
@@ -35,11 +32,11 @@ public class LoginBean {
 		setPop("1");
 		setType("2");
 		setN("117");
-		setIp();
+		setIp(ip);
 		setMbytes("0");
 		setMinutes("0");
 		setAc_id("6");
-		setMac();
+		setMac(mac);
 		setCguid("");
 		setKey();
 	}
@@ -65,14 +62,8 @@ public class LoginBean {
 	public void setN(String n) {
 		this.n = n;
 	}
-	public void setIp() {
-		String _ip;
-		try {
-			_ip = InetAddress.getLocalHost().getHostAddress();
-		} catch (UnknownHostException e) {
-			throw new RuntimeException();
-		}
-		this.ip = IPConverter.ipToLong(_ip) + "";
+	public void setIp(String ip) {
+		this.ip = ip;
 	}
 	public void setMbytes(String mbytes) {
 		this.mbytes = mbytes;
@@ -83,8 +74,8 @@ public class LoginBean {
 	public void setAc_id(String ac_id) {
 		this.ac_id = ac_id;
 	}
-	public void setMac() throws GetMACFailException {
-		this.mac = MACGetter.getLocalMac();
+	public void setMac(String mac) throws GetMACFailException {
+		this.mac = mac;
 	}
 	public void setCguid(String cguid) {
 		this.cguid = cguid;

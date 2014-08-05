@@ -12,37 +12,36 @@ import client.core.UDPOperator;
 import client.exception.GetMACFailException;
 import client.exception.OperatorCloseException;
 import client.util.Global;
-import client.util.MACGetter;
 import client.util.PropertyRW;
 import client.util.URIMaker;
 
 public class Action {
 	private static HttpOperator ho;
 
-	public static String login(String username, String password) throws GetMACFailException {
+	public static String login(String username, String password, String mac, String ip) 
+			throws GetMACFailException {
 		URI uri = URIMaker.makeURI(Global.LOGINPATH);
 
 		ho = new HttpOperator(uri);
-		LoginBean bean = new LoginBean(username, password);
+		LoginBean bean = new LoginBean(username, password, mac, ip);
 		ho.setEntity(bean.toEntityString());
 		return ho.post();
 	}
 
-	public static String logout(String username) throws GetMACFailException {
+	public static String logout(String username, String mac) throws GetMACFailException {
 		URI uri = URIMaker.makeURI(Global.LOGOUTPATH);
-		LogoutBean bean = new LogoutBean(username);
+		LogoutBean bean = new LogoutBean(username, mac);
 
 		ho = new HttpOperator(uri);
 		ho.setEntity(bean.toEntityString());
 		return ho.post();
 	}
 
-	public static void keepAlive(String username) throws GetMACFailException {
+	public static void keepAlive(String username, String mac) throws GetMACFailException {
 		PropertyRW pr = PropertyRW.getInstance();
 		String a = pr.getProperty(Global.HOST);
 		int p = Integer.parseInt(pr.getProperty(Global.UDPPORT));
-		String m = MACGetter.getLocalMac();
-		UDPOperator.send(a, p, username, m);
+		UDPOperator.send(a, p, username, mac);
 		System.out.println("keep alive");
 	}
 

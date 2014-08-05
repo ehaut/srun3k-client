@@ -11,8 +11,15 @@ public class PropertyRW {
 	private Properties props;
 	private static PropertyRW reader;
 	private static String file;
-	
+
 	private PropertyRW() {
+		//条件编译, 请查看client.util.Global
+		if (!Global.forEXE) {
+			String temp = getClass().getProtectionDomain().getCodeSource()
+					.getLocation().getPath();
+			int length = temp.lastIndexOf("/") + 1;
+			file = temp.substring(0, length) + file;
+		}
 		props = new Properties();
 		InputStream in = null;
 		try {
@@ -21,7 +28,7 @@ public class PropertyRW {
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException();
-		}finally{
+		} finally {
 			try {
 				in.close();
 			} catch (IOException e) {
@@ -29,18 +36,23 @@ public class PropertyRW {
 			}
 		}
 	}
-	public static PropertyRW getInstance(String file){
+
+	public static PropertyRW getInstance(String file) {
 		PropertyRW.file = file;
-		if (reader == null) reader = new PropertyRW();
+		if (reader == null)
+			reader = new PropertyRW();
 		return reader;
 	}
-	public static PropertyRW getInstance(){
+
+	public static PropertyRW getInstance() {
 		return getInstance(Global.PROPERTYFILE);
 	}
-	public String getProperty(String key){
+
+	public String getProperty(String key) {
 		return props.getProperty(key);
 	}
-	public void setProperty(String key, String value){
+
+	public void setProperty(String key, String value) {
 		props.setProperty(key, value);
 		FileOutputStream out = null;
 		try {
@@ -48,14 +60,14 @@ public class PropertyRW {
 			props.store(out, "powered by szq");
 		} catch (Exception e) {
 			throw new RuntimeException();
-		}finally{
+		} finally {
 			try {
 				out.close();
 			} catch (IOException e) {
 				throw new RuntimeException();
 			}
 		}
-		
+
 	}
-	
+
 }

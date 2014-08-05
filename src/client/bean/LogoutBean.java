@@ -2,7 +2,6 @@
 package client.bean;
 
 import client.exception.GetMACFailException;
-import client.util.MACGetter;
 
 public class LogoutBean {
 
@@ -13,11 +12,11 @@ public class LogoutBean {
     private String type;
     
 
-    public LogoutBean(String username) throws GetMACFailException {
+    public LogoutBean(String username, String mac) throws GetMACFailException {
         setAction("logout");
         setAc_id("6");
         setUsername(username);
-        setMac();
+        setMac(mac);
         setType("2");
     }
 
@@ -31,8 +30,8 @@ public class LogoutBean {
     public void setUsername(String username) {
         this.username = username;
     }
-    public void setMac() throws GetMACFailException {
-        this.mac = MACGetter.getLocalMac();
+    public void setMac(String mac) throws GetMACFailException {
+        this.mac = mac;
     }
     public void setType(String type) {
         this.type = type;

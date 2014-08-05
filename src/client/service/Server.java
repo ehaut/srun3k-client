@@ -1,20 +1,46 @@
 package client.service;
 
+import java.net.NetworkInterface;
+
+import client.exception.GetIPFailException;
 import client.exception.GetMACFailException;
 import client.exception.OperatorCloseException;
 import client.util.Global;
+import client.util.InterInfoGetter;
 import client.view.MainWindow;
 
 public class Server extends Thread {
 	private boolean run;
 	private int clientState;
+	private String mac;
+	private String ip;
 	private String username;
 	private String password;
 	private String MSG;
 	private String userInfo;
 	private MainWindow window;
-	
-	
+
+	public void setInter(NetworkInterface inter) {
+		try {
+			mac = InterInfoGetter.getLocalMac(inter);
+		} catch (GetMACFailException e) {
+			sendMSG(Global.tipMSG, "获取网卡MAC失败");
+		}
+		try {
+			ip = InterInfoGetter.getLocalIP(inter);
+		} catch (GetIPFailException e) {
+			sendMSG(Global.tipMSG, "获取网卡IP失败");
+		}
+	}
+
+	public void setMac(String mac) {
+		this.mac = mac;
+	}
+
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
+
 	public boolean getRun() {
 		return run;
 	}
@@ -105,7 +131,7 @@ public class Server extends Thread {
 		clientState = Global.logout;
 		if (run == false){
 			try {
-				MSG = Action.logout(username);
+				MSG = Action.logout(username, mac);
 			} catch (GetMACFailException e) {
 				sendMSG(Global.tipMSG, "MAC获取失败，请检查是否插好网线");
 			}
@@ -139,9 +165,11 @@ public class Server extends Thread {
 			// 登录
 			if (clientState == Global.login) {
 				try {
-					MSG = Action.login(username, password);
+					MSG = Action.login(username, password, mac, ip);
 				} catch (GetMACFailException e) {
 					sendMSG(Global.tipMSG, "MAC获取失败，请检查是否插好网线");
+				} catch (Exception e){
+					sendMSG(Global.tipMSG, "认证服务器无响应");
 				}
 				dealMSG();
 			}
@@ -160,7 +188,7 @@ public class Server extends Thread {
 					System.out.println("interrupt");
 					if (clientState == Global.logout) {
 						try {
-							MSG = Action.logout(username);
+							MSG = Action.logout(username, mac);
 						} catch (GetMACFailException e1) {
 							sendMSG(Global.tipMSG, "MAC获取失败，请检查是否插好网线");
 						}
@@ -168,7 +196,7 @@ public class Server extends Thread {
 					}
 				}
 				try {
-					Action.keepAlive(username);
+					Action.keepAlive(username, mac);
 				} catch (GetMACFailException e) {
 					sendMSG(Global.tipMSG, "MAC获取失败，请检查是否插好网线");
 				}

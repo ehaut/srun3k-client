@@ -58,7 +58,6 @@ public class HttpOperator {
 			if (response.getEntity() == null) return null;
 			return EntityUtils.toString(response.getEntity());
 		} catch (Exception e) {
-			e.printStackTrace();
 			throw new RuntimeException();
 		}finally{
 			try {

@@ -18,15 +18,19 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Date;
+import java.util.Vector;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -39,14 +43,12 @@ import org.apache.http.client.utils.URIBuilder;
 import client.bean.User;
 import client.service.Server;
 import client.util.Global;
+import client.util.InterInfoGetter;
 import client.util.PasswordMaker;
 import client.util.PropertyRW;
 
 public class MainWindow extends JDialog {
-	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private final String FONT = "微软雅黑";
 	private final int STYLE = Font.PLAIN;
@@ -70,6 +72,8 @@ public class MainWindow extends JDialog {
     private JLabel linkLabel;
     private JLabel msgLabel;
     private SystemTray tray;
+    private JLabel interLabel;
+    private JComboBox<NetworkInterface> interCombo;
     
     public MainWindow() {
         initComponents();
@@ -92,9 +96,16 @@ public class MainWindow extends JDialog {
         msgArea = new JLabel();
         linkLabel = new JLabel();
         msgLabel = new JLabel();
-
+        interLabel = new JLabel();
+		Vector<NetworkInterface> inters = null;
+		try {
+			inters = InterInfoGetter.getInterfaces();
+		} catch (SocketException e3) {
+			updateMSG(Global.tipMSG, "获取网卡信息失败");
+		}
+        interCombo = new JComboBox<NetworkInterface>(inters);
         setTitle("校园网客户端" + Global.version);
-        setSize(450, 350);
+        setSize(450, 400);
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
         setLocation(screen.width / 2 - 200, screen.height / 2 - 200);
         
@@ -122,7 +133,11 @@ public class MainWindow extends JDialog {
         passLabel.setText("密  码");
         passLabel.setFont(new Font(FONT, STYLE, SIZE));
         passLabel.setBounds(50, 55, 100, 35);
- 
+        interLabel.setText("网卡");
+        interLabel.setFont(new Font(FONT, STYLE, SIZE));
+        interLabel.setBounds(50, 90, 100, 35);
+
+        
         userField.setBorder(BorderFactory.createEtchedBorder());
         userField.setSelectionColor(new Color(76,181,73));
         userField.setFont(new Font(FONT, STYLE, SIZE));
@@ -136,6 +151,11 @@ public class MainWindow extends JDialog {
         passField.setBounds(120, 55, 210, 35);
         passField.setText(reader.getProperty(Global.PASSWORD));
         
+        interCombo.setBorder(null);
+        interCombo.setFont(new Font(FONT, STYLE, SIZE - 4));
+        interCombo.setBounds(120, 90, 210, 35);
+        interCombo.setBackground(Color.WHITE);
+        
         checkBox.setText("记住密码");
         checkBox.setFont(new Font(FONT, STYLE, SIZE));
         checkBox.setBounds(350, 20, 100, 35);
@@ -143,18 +163,20 @@ public class MainWindow extends JDialog {
         checkBox.setSelected(true);
         
         //登录后显示
-        msgArea.setBounds(5, 5, 440, 110);
+        msgArea.setBounds(5, 5, 440, 170);
         msgArea.setFont(new Font(FONT, STYLE, SIZE+10));
         msgArea.setHorizontalAlignment(SwingConstants.CENTER);
         msgArea.setCursor(new Cursor(Cursor.HAND_CURSOR));
         
         mainPanel.setBackground(new Color(235, 242, 249));
-        mainPanel.setBounds(0,150, 450, 120);
+        mainPanel.setBounds(0,150, 450, 170);
         mainPanel.setLayout(null);
         mainPanel.add(userLabel);
         mainPanel.add(passLabel);
         mainPanel.add(userField);
         mainPanel.add(passField);
+        mainPanel.add(interLabel);
+        mainPanel.add(interCombo);
         mainPanel.add(checkBox);
         
         msgLabel.setText("<html><u>通知</u></html>");
@@ -176,7 +198,7 @@ public class MainWindow extends JDialog {
 
         logbtPanel.setLayout(null);
         logbtPanel.setBackground(new Color(235, 242, 249));
-        logbtPanel.setBounds(0, 270, 450, 80);
+        logbtPanel.setBounds(0, 320, 450, 80);
         //logbtPanel.add(msgLabel);
         logbtPanel.add(logBut);
         logbtPanel.add(linkLabel);
@@ -248,11 +270,19 @@ public class MainWindow extends JDialog {
 				} catch (URISyntaxException e2) {
 					updateMSG(Global.tipMSG, "哎呀，出错了");
 				}
-				Desktop desktop = Desktop.getDesktop();
+				String m = "<html>该系统不支持调用浏览器,请手动打开网址 " + uri + "</html>";
+				System.out.println(m);
+				Desktop desktop = null;
+				if (Desktop.isDesktopSupported()){
+					desktop = Desktop.getDesktop();
+				}else{
+					updateMSG(Global.tipMSG, m);
+					return;
+				}
 				try {
 					desktop.browse(uri);
 				} catch (IOException e1) {
-					updateMSG(Global.tipMSG, "哎呀，出错了");
+					updateMSG(Global.tipMSG, m);
 				}
 			}
 		});
@@ -267,15 +297,16 @@ public void setTray() {
 			tray = SystemTray.getSystemTray();
 			Image image = null;
 			try {
-				image = ImageIO.read(getClass().getResource("/img/logo16.png"));
+				image = ImageIO.read(getClass().getResource("/img/logo24.png"));
+				
 			} catch (IOException e2) {
 				e2.printStackTrace();
 			}
 			String text = "校园网客户端";
 			//3.弹出菜单popupMenu
 			PopupMenu popMenu = new PopupMenu();
-			MenuItem itmHide = new MenuItem("显示");
-			itmHide.addActionListener(new ActionListener(){
+			MenuItem itmDisplay = new MenuItem("显示");
+			itmDisplay.addActionListener(new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					showWindow();
@@ -288,9 +319,13 @@ public void setTray() {
 					exitWindow();
 				}
 			});
-			popMenu.add(itmHide);
+			
+			itmExit.setFont(new Font(FONT, STYLE, SIZE - 3));
+			itmDisplay.setFont(new Font(FONT, STYLE, SIZE - 3));
+			popMenu.add(itmDisplay);
 			popMenu.add(itmExit);
 			TrayIcon trayIcon = new TrayIcon(image,text,popMenu);
+
 			trayIcon.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
@@ -329,6 +364,7 @@ public void setTray() {
     	mainPanel.add(userField);
     	mainPanel.add(passLabel);
     	mainPanel.add(passField);
+    	mainPanel.add(interCombo);
     	mainPanel.add(checkBox);
     	mainPanel.repaint();
     }
@@ -357,7 +393,8 @@ public void setTray() {
     		msgArea.setText(msg);
     		logBut.setText("登录");
     	}else if(type == Global.tipMSG){
-    		if(msg.contains("MAC"))
+    		if(msg.contains("MAC") || msg.contains("认证服务器无响应")
+    				|| msg.contains("IP失败") || msg.contains("网卡信息失败"))
     			logBut.setText("登录");
     		msgArea.setText(msg);
     	}else if(type == Global.systemMSG){
@@ -392,6 +429,7 @@ public void setTray() {
 			updateMSG(Global.tipMSG, "请输入密码");
 			return;
 		}
+		logBut.setText("取消");
 		user.setUsername(username);
 		user.setPassword(password);
 		String passKey = PropertyRW.getInstance().getProperty(Global.PASSWORDKEY);
@@ -401,8 +439,9 @@ public void setTray() {
 		server.setClientState(Global.login);
 		server.setUsername(username);
 		server.setPassword(password);
+		server.setInter((NetworkInterface)interCombo.getSelectedItem());
 		server.start();
-		logBut.setText("取消");
+		
 	}
 
 	private void logout() {
@@ -419,6 +458,7 @@ public void setTray() {
 			return;
 		}
 		server.cancel();
+		logBut.setText("登录");
 	}
 	
 	 public static void main(String args[]) {
