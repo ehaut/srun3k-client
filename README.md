@@ -43,4 +43,10 @@ Icon=/home/abc/client/logo128.png
 注意: 所以的修改必须是用户自己的情况而定
 
 
+简单协议介绍
+------------
+经抓包发现, srun3000 使用了两种协议: htpp udp.<br>
+服务器对用户的http请求分为: login, logout, get_msg, read_userinfo <br>
+而udp协议的用处是，在登陆过后，每隔一定时间（srun3000是50s)，向服务器发送一次udp报文，保证用户持续在线。
+
 如有疑问请邮件:szq921@gmail.com
