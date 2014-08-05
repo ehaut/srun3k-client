@@ -3,6 +3,9 @@ Client
 
 srun300 client for Henan University of Techonlogy<br>
 
+![](https://github.com/hauter/client/blob/master/view/view.png)
+![](https://github.com/hauter/client/blob/master/view/view1.png)
+
 安装
 ---------------------------
 windows用户下载client.zip,解压至任意位置即可.
