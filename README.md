@@ -6,6 +6,24 @@ srun300 client for Henan University of Techonlogy<br>
 ![](https://github.com/hauter/client/blob/master/view/view.png)
 ![](https://github.com/hauter/client/blob/master/view/view1.png)
 
+更新日志
+---
+
+2014-8-8 v0.1.2
+
+* 修复密码加密算法bug
+
+2014-8-6 v0.1.1
+
+* 修复mac地址获取获取算法错误
+* 加入网卡选择功能
+
+2014-8-4 v0.1.0
+
+* 项目发布
+
+---
+
 安装
 -----
 windows用户下载client.zip,解压至任意位置即可.<br>
