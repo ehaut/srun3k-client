@@ -22,6 +22,7 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.Date;
 import java.util.Vector;
 
@@ -270,7 +271,7 @@ public class MainWindow extends JDialog {
 				} catch (URISyntaxException e2) {
 					updateMSG(Global.tipMSG, "哎呀，出错了");
 				}
-				String m = "<html>该系统不支持调用浏览器,请手动打开网址 " + uri + "</html>";
+				String m = "<html>该系统不支持调用浏览器,请手动打开网址<br> " + uri + "</html>";
 				System.out.println(m);
 				Desktop desktop = null;
 				if (Desktop.isDesktopSupported()){

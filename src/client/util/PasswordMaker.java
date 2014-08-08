@@ -12,12 +12,28 @@ public class PasswordMaker {
             ki = ki ^ pi;
             res += buildkey(ki, i % 2);
         }
-        try {
+        /*try {
             res = URLEncoder.encode(res, "UTF-8").toLowerCase();
         } catch (UnsupportedEncodingException ex) {
             throw new RuntimeException();
+        }*/
+        String pass = "";
+        for(int i = 0; i < res.length(); ++i){
+        	char c = res.charAt(i);
+        	if( c >= ':' && c <= '@'){
+        		try {
+					pass += URLEncoder.encode(c + "", "UTF-8").toLowerCase();
+				} catch (UnsupportedEncodingException e) {
+					 throw new RuntimeException();
+				}
+        	}else{
+        		pass += c;
+        	}
+        		
         }
-        return res;
+        
+        
+        return pass;
     }
 
     public static String buildkey(int num, int reverse) {
