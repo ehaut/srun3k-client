@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+</head>
+<body>
+
+<script>
+	function login_init() {
+		// usrename_encrypt
+		var username_crypto = "";
+		var username = document.getElementById("username").value;
+		for (var i = 0; i < username.length; ++i) {
+			username_crypto += String.fromCharCode(username.charCodeAt(i) + 4);
+		}
+		document.getElementById("real_username").value = "{SRUN3}\r\n" + username_crypto;
+		// alert(document.getElementById("username").value);
+
+		// password_encrypt
+		var key = "1234567890";
+		var password = document.getElementById("password").value;
+		var password_crypto = "";
+		for (var i = 0; i < password.length; ++i) {
+			var ki = password.charCodeAt(i) ^ key.charCodeAt(key.length - i % key.length - 1);
+			var _l = String.fromCharCode((ki & 0x0f) + 0x36);
+			var _h = String.fromCharCode((ki >> 4 & 0x0f) + 0x63);
+			if (i % 2 == 0) {
+				password_crypto += _l + _h;
+			} else {
+				password_crypto += _h + _l;
+			}
+		}
+		document.getElementById("real_password").value = password_crypto;
+		//alert(password_crypto);
+	}
+</script>
+
+<form action="http://172.16.154.130:69/cgi-bin/srun_portal" method="POST" onsubmit="login_init()">
+<h2>Login</h2>
+	<input type="hidden" name="action" value="login" />
+	username:<input id="username" /><br />
+	<input type="hidden" id="real_username" name="username" />
+	password:<input id="password" type="password" /><br />
+	<input type="hidden" id="real_password" name="password" />
+	<input type="hidden" name="drop" value="0" />
+	<input type="hidden" name="pop" value="1" />
+	<input type="hidden" name="type" value="2" />
+	<input type="hidden" name="n" value="117" />
+	<input type="hidden" name="mbytes" value="0" />
+	<input type="hidden" name="minutes" value="0" />
+	<input type="hidden" name="ac_id" value="2" />
+	<input type="submit" value="Login" />
+</form>
+<hr />
+
+<!-- 注销 -->
+<form action="http://172.16.154.130:69/cgi-bin/srun_portal" method="POST">
+<h2>Logout</h2>
+	<input type="hidden" name="action" value="logout" />
+	<input type="hidden" name="ac_id" value="2" />
+	<input type="hidden" name="type" value="2" />
+	username:<input type="text" name="username" /><br />
+	<input type="hidden" name="mac" />
+	<input type="submit" value="Logout" />	
+</form>
+<hr />
+
+<!-- 查看当前登录状态 -->
+<form action="http://172.16.154.130/cgi-bin/rad_user_info" method="GET">
+	<input type="submit" value="Read User Info" />
+</form>
+<hr />
+
+<!-- 获取广播信息 -->
+<form action="http://172.16.154.130/get_msg.php" method="GET">
+	<input type="submit" value="Get Message" />	
+</form>
+</body>
+</html>
