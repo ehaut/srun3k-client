@@ -306,14 +306,14 @@ public void setTray() {
 			String text = "校园网客户端";
 			//3.弹出菜单popupMenu
 			PopupMenu popMenu = new PopupMenu();
-			MenuItem itmDisplay = new MenuItem("显示");
+			MenuItem itmDisplay = new MenuItem("Show");
 			itmDisplay.addActionListener(new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					showWindow();
 				}
 			});
-			MenuItem itmExit = new MenuItem("退出");
+			MenuItem itmExit = new MenuItem("Exit");
 			itmExit.addActionListener(new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent e) {
