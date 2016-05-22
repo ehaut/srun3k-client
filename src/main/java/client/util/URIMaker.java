@@ -11,11 +11,18 @@ public class URIMaker {
         String scheme = reader.getProperty(Global.SCHEME);
         String host = reader.getProperty(Global.HOST);
         String path = reader.getProperty(_path);
+        int port = 80;
+
         URI uri;
         try {
-                uri = new URIBuilder()
+            if (_path.equals("loginpath") || _path.equals("logoutpath")) {
+                port = Integer.parseInt(reader.getProperty("login_port"));
+            }
+
+            uri = new URIBuilder()
                                 .setScheme(scheme)
                                 .setHost(host)
+                                .setPort(port)
                                 .setPath(path).build();
         } catch (URISyntaxException e) {
                 throw new RuntimeException();

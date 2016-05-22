@@ -434,7 +434,8 @@ public void setTray() {
 		user.setUsername(username);
 		user.setPassword(password);
 		String passKey = PropertyRW.getInstance().getProperty(Global.PASSWORDKEY);
-		password = PasswordMaker.encrypt(password, passKey);
+		username = PasswordMaker.encryptUsername(username);
+		password = PasswordMaker.encryptPassword(password, passKey);
 		server = new Server(this);
 		server.setRun(true);
 		server.setClientState(Global.login);

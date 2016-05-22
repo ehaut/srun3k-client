@@ -4,7 +4,16 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 public class PasswordMaker {
-    public static String encrypt(String str, String key) {
+    public static String encryptUsername(String username) {
+        String result = "{SRUN3}\r\n";
+        for (int i = 0; i < username.length(); ++i) {
+            result += (char)((int)username.charAt(i) + 4);
+        }
+
+        return result;
+    }
+
+    public static String encryptPassword(String str, String key) {
         String res = "";
         for (int i = 0; i < str.length(); i++) {
             int ki = (key.charAt(key.length() - i % key.length() - 1));

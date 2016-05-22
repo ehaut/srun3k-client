@@ -32,13 +32,13 @@ public class LoginBean {
 		setPop("1");
 		setType("2");
 		setN("117");
-		setIp(ip);
+		// setIp(ip);
 		setMbytes("0");
 		setMinutes("0");
-		setAc_id("6");
+		setAc_id("2");
 		setMac(mac);
-		setCguid("");
-		setKey();
+		// setCguid("");
+		// setKey();
 	}
 	
 	public void setAction(String action) {
@@ -108,13 +108,13 @@ public class LoginBean {
 		temp += "pop=" 		+ pop		+ "&";
 		temp += "type=" 	+ type		+ "&";
 		temp += "n=" 		+ n			+ "&";
-		temp += "ip=" 		+ ip		+ "&";
+		// temp += "ip=" 		+ ip		+ "&";
 		temp += "mbytes=" 	+ mbytes	+ "&";
 		temp += "minutes=" 	+ minutes	+ "&";
 		temp += "ac_id="	+ ac_id		+ "&";
 		temp += "mac=" 		+ mac		+ "&";
-		temp += "cguid=" 	+ cguid		+ "&";
-		temp += "key=" 		+ getNewKey();
+		// temp += "cguid=" 	+ cguid		+ "&";
+		// temp += "key=" 		+ getNewKey();
 		return temp;
 	}
 }

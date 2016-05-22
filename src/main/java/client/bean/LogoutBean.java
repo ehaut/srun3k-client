@@ -14,7 +14,7 @@ public class LogoutBean {
 
     public LogoutBean(String username, String mac) throws GetMACFailException {
         setAction("logout");
-        setAc_id("6");
+        setAc_id("2");
         setUsername(username);
         setMac(mac);
         setType("2");
