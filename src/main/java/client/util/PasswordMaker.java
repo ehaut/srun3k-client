@@ -9,6 +9,11 @@ public class PasswordMaker {
         for (int i = 0; i < username.length(); ++i) {
             result += (char)((int)username.charAt(i) + 4);
         }
+        try {
+            result = URLEncoder.encode(result, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
 
         return result;
     }
@@ -40,8 +45,7 @@ public class PasswordMaker {
         	}
         		
         }
-        
-        
+
         return pass;
     }
 

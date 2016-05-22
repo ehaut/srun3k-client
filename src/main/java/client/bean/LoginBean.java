@@ -1,7 +1,7 @@
 
 package client.bean;
 
-import java.util.Vector;
+import java.util.*;
 
 import client.exception.GetMACFailException;
 import client.util.PropertyRW;
@@ -116,5 +116,23 @@ public class LoginBean {
 		// temp += "cguid=" 	+ cguid		+ "&";
 		// temp += "key=" 		+ getNewKey();
 		return temp;
+	}
+
+	public Map<String, String> getParamMap() {
+		Map<String, String> map = new HashMap<>();
+
+		map.put("action", action);
+		map.put("username", username);
+		map.put("password", password);
+		map.put("drop", drop);
+		map.put("pop", pop);
+		map.put("type", type);
+		map.put("n", n);
+		map.put("mbytes", mbytes);
+		map.put("minutes", minutes);
+		map.put("ac_id", ac_id);
+		map.put("mac", mac);
+
+		return map;
 	}
 }

@@ -3,6 +3,9 @@ package client.bean;
 
 import client.exception.GetMACFailException;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class LogoutBean {
 
     private String action;
@@ -52,4 +55,15 @@ public class LogoutBean {
         return temp;
     }
 
+    public Map<String, String> getParamMap() {
+        Map<String, String> map = new HashMap<>();
+
+        map.put("action", action);
+        map.put("username", username);
+        map.put("type", type);
+        map.put("ac_id", ac_id);
+        map.put("mac", mac);
+
+        return map;
+    }
 }

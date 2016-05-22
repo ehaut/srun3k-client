@@ -24,7 +24,7 @@ public class Action {
 
 		ho = new HttpOperator(uri);
 		LoginBean bean = new LoginBean(username, password, mac, ip);
-		ho.setEntity(bean.toEntityString());
+		ho.setParamMap(bean.getParamMap());
 		return ho.post();
 	}
 
@@ -33,7 +33,7 @@ public class Action {
 		LogoutBean bean = new LogoutBean(username, mac);
 
 		ho = new HttpOperator(uri);
-		ho.setEntity(bean.toEntityString());
+		ho.setParamMap(bean.getParamMap());
 		return ho.post();
 	}
 

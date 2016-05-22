@@ -21,7 +21,8 @@ public class HttpOperatorTest {
 		operator.PushHeader("Content-Type", "application/x-www-form-urlencoded");
 		operator.PushHeader("User-Agent", userAgent);
 		operator.PushHeader("Accept", "text/plain");
-		operator.setEntity(entity);
+		// operator.setEntity(entity);
+		// operator.setParamMap();
 		System.out.println(operator.post());
 	}
 
