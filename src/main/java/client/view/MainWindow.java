@@ -298,7 +298,7 @@ public void setTray() {
 			tray = SystemTray.getSystemTray();
 			Image image = null;
 			try {
-				image = ImageIO.read(getClass().getResource("/img/logo24.png"));
+				image = ImageIO.read(getClass().getResource("/img/logo16.png"));
 				
 			} catch (IOException e2) {
 				e2.printStackTrace();
