@@ -1,5 +1,3 @@
-package client.test;
-
 import client.core.UDPOperator;
 import client.exception.GetMACFailException;
 import client.util.Global;

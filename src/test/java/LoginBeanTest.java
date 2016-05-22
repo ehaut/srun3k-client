@@ -1,5 +1,3 @@
-package client.test;
-
 import client.bean.LoginBean;
 import client.exception.GetMACFailException;
 import client.util.PropertyRW;

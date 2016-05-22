@@ -1,5 +1,3 @@
-package client.test;
-
 import java.net.UnknownHostException;
 
 import client.util.IPConverter;

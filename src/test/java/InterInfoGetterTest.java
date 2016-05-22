@@ -1,5 +1,3 @@
-package client.test;
-
 import java.net.SocketException;
 
 import client.util.InterInfoGetter;

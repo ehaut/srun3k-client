@@ -1,5 +1,3 @@
-package client.test;
-
 import client.util.PasswordMaker;
 
 public class PassWordMakerTest {

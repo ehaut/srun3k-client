@@ -1,5 +1,3 @@
-package client.test;
-
 import client.exception.GetMACFailException;
 import client.service.Action;
 import client.util.PropertyRW;
