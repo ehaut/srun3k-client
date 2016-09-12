@@ -51,7 +51,7 @@
 			<input type="hidden" name="n" value="117" />
 			<input type="hidden" name="mbytes" value="0" />
 			<input type="hidden" name="minutes" value="0" /> ac_id:
-			<input type="text" name="ac_id" value="1" /><br />
+			<input type="text" name="ac_id" value="2" /><br />
 			<input type="submit" class="btn btn-primary" value="Login" />
 		</form>
 		<hr />
@@ -59,10 +59,10 @@
 		<!-- 注销 -->
 		<form action="http://172.16.154.130:69/cgi-bin/srun_portal" method="POST">
 			<h2>Logout</h2>
-			<input type="hidden" name="type" value="2" /> username:
-			<input type="text" name="username" /><br />
+			<input type="hidden" name="type" value="2" />
+			<input type="hidden" name="username" value="logout" />
 			<input type="hidden" name="action" value="logout" /> ac_id:
-			<input type="text" name="ac_id" value="1" /><br />
+			<input type="text" name="ac_id" value="2" /><br />
 			<input type="hidden" name="mac" />
 			<input type="submit" class="btn btn-primary" value="Logout" />
 		</form>
