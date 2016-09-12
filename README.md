@@ -9,7 +9,7 @@ Srun3k Client written in HTML/JavsScript for haut network authorization
 + 离线版(将网页保存至本地使用浏览器打开)
 
 ## 提示
-**这个程序目前有一些已知的问题，如果你发现不能登录，可以在这里提issue或者通过其他方式联系我。**
+**这个程序目前有一些已知的问题，主要是`ac_id`的问题。如果你发现不能登录，可以在这里提issue或者通过其他方式联系我。**
 
 ## 使用说明
 
