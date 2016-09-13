@@ -33,6 +33,10 @@
 			document.getElementById("real_password").value = password_crypto;
 			//alert(password_crypto);
 		}
+
+		function logout_init() {
+			document.getElementById("logout_ac_id").value = document.getElementById("login_ac_id").value;
+		}
 	</script>
 </head>
 
@@ -51,33 +55,31 @@
 			<input type="hidden" name="n" value="117" />
 			<input type="hidden" name="mbytes" value="0" />
 			<input type="hidden" name="minutes" value="0" /> ac_id:
-			<input type="text" name="ac_id" value="2" /><br />
+			<input type="text" name="ac_id" value="2" id="login_ac_id" /><br />
 			<input type="submit" class="btn btn-primary" value="Login" />
 		</form>
-		<hr />
 
 		<!-- 注销 -->
-		<form action="http://172.16.154.130:69/cgi-bin/srun_portal" method="POST">
-			<h2>Logout</h2>
+		<form action="http://172.16.154.130:69/cgi-bin/srun_portal" method="POST" onsubmit="logout_init()">
 			<input type="hidden" name="type" value="2" />
 			<input type="hidden" name="username" value="logout" />
-			<input type="hidden" name="action" value="logout" /> ac_id:
-			<input type="text" name="ac_id" value="2" /><br />
+			<input type="hidden" name="action" value="logout" />
+			<input type="hidden" name="ac_id" id="logout_ac_id" />
 			<input type="hidden" name="mac" />
 			<input type="submit" class="btn btn-primary" value="Logout" />
 		</form>
 		<hr />
 
 		<!-- 查看当前登录状态 -->
+		<h2>Current Status</h2>
 		<form action="http://172.16.154.130/cgi-bin/rad_user_info" method="GET">
 			<input type="submit" class="btn btn-primary" value="Read User Info" />
 		</form>
 		<hr />
 
 		<!-- 获取广播信息 -->
-		<form action="http://172.16.154.130/get_msg.php" method="GET">
-			<input type="submit" class="btn btn-primary" value="Get Message" />
-		</form>
+		<h2>Broadcast Message</h2>
+		<iframe id="broadcast_frame" src="http://172.16.154.130/get_msg.php"></iframe>
 	</div>
 
 	<br /><br />
