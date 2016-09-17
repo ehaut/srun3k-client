@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+	<meta charset="utf-8" />
+	<title>校园网登录器</title>
+
+	<script>
+		function login_init() {
+			// usrename_encrypt
+			var username_crypto = "";
+			var username = document.getElementById("username").value;
+			for (var i = 0; i < username.length; ++i) {
+				username_crypto += String.fromCharCode(username.charCodeAt(i) + 4);
+			}
+			document.getElementById("real_username").value = "{SRUN3}\r\n" + username_crypto;
+			// alert(document.getElementById("username").value);
+
+			// password_encrypt
+			var key = "1234567890";
+			var password = document.getElementById("password").value;
+			var password_crypto = "";
+			for (var i = 0; i < password.length; ++i) {
+				var ki = password.charCodeAt(i) ^ key.charCodeAt(key.length - i % key.length - 1);
+				var _l = String.fromCharCode((ki & 0x0f) + 0x36);
+				var _h = String.fromCharCode((ki >> 4 & 0x0f) + 0x63);
+				if (i % 2 == 0) {
+					password_crypto += _l + _h;
+				} else {
+					password_crypto += _h + _l;
+				}
+			}
+			document.getElementById("real_password").value = password_crypto;
+			//alert(password_crypto);
+		}
+
+		function logout_init() {
+			document.getElementById("logout_ac_id").value = document.getElementById("login_ac_id").value;
+		}
+	</script>
+</head>
+
+<body>
+	<div class="container">
+		<form action="http://172.16.154.130:69/cgi-bin/srun_portal" method="POST" onsubmit="login_init()">
+			<h2>登录</h2>
+			<input type="hidden" name="action" value="login" /> 用户名:
+			<input id="username" /><br />
+			<input type="hidden" id="real_username" name="username" /> 密码:
+			<input id="password" type="password" /><br />
+			<input type="hidden" id="real_password" name="password" />
+			<input type="hidden" name="drop" value="0" />
+			<input type="hidden" name="pop" value="1" />
+			<input type="hidden" name="type" value="2" />
+			<input type="hidden" name="n" value="117" />
+			<input type="hidden" name="mbytes" value="0" />
+			<input type="hidden" name="minutes" value="0" /> ac_id:
+			<input type="text" name="ac_id" value="1" id="login_ac_id" /><br />
+			如果提示 <i>"login_error#INFO failed, BAS respond timeout."</i>， 更改 <b>ac_id</b> 的值然后重试。通常来说，这个值是 <b>1</b> 或者 <b>2</b>。<br />
+			<input type="submit" value="登录" />
+		</form>
+
+		<!-- 注销 -->
+		<form action="http://172.16.154.130:69/cgi-bin/srun_portal" method="POST" onsubmit="logout_init()">
+			<input type="hidden" name="type" value="2" />
+			<input type="hidden" name="username" value="logout" />
+			<input type="hidden" name="action" value="logout" />
+			<input type="hidden" name="ac_id" id="logout_ac_id" />
+			<input type="hidden" name="mac" />
+			<input type="submit" value="注销" />
+		</form>
+		<hr />
+
+		<!-- 查看当前登录状态 -->
+		<h2>查看当前登录状态</h2>
+		<form action="http://172.16.154.130/cgi-bin/rad_user_info" method="GET">
+			<input type="submit" value="Read User Info" />
+		</form>
+		<hr />
+
+		<!-- 获取广播信息 -->
+		<h2>校园网广播消息</h2>
+		<iframe id="broadcast_frame" src="http://172.16.154.130/get_msg.php"></iframe>
+	</div>
+
+	<br /><br />
+	<div id="page-footer">
+		<footer>
+			<small>&copy; 制作人：<a href="https://github.com/samuelts/srun3k-client/">Samuelts</a></small>
+		</footer>
+	</div>
+</body>
+
+</html>
