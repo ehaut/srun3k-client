@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cn">
+<html>
 
 <head>
 	<meta charset="utf-8" />
@@ -14,7 +14,6 @@
 				username_crypto += String.fromCharCode(username.charCodeAt(i) + 4);
 			}
 			document.getElementById("real_username").value = "{SRUN3}\r\n" + username_crypto;
-			// alert(document.getElementById("username").value);
 
 			// password_encrypt
 			var key = "1234567890";
@@ -31,11 +30,14 @@
 				}
 			}
 			document.getElementById("real_password").value = password_crypto;
-			//alert(password_crypto);
 		}
 
 		function logout_init() {
 			document.getElementById("logout_ac_id").value = document.getElementById("login_ac_id").value;
+		}
+
+		function openurl(url) {
+			window.location.href = url;
 		}
 	</script>
 </head>
@@ -71,11 +73,10 @@
 		</form>
 		<hr />
 
-		<!-- 查看当前登录状态 -->
-		<h2>Current Status</h2>
-		<form action="http://172.16.154.130/cgi-bin/rad_user_info" method="GET">
-			<input type="submit" class="btn btn-primary" value="Read User Info" />
-		</form>
+		<!-- 管理功能 -->
+		<h2>Manage</h2>
+		<button onclick="openurl('http://172.16.154.130/cgi-bin/rad_user_info')">Current Status</button>
+		<button onclick="openurl('http://172.16.154.130:8800/')">Account Settings</button>
 		<hr />
 
 		<!-- 获取广播信息 -->
@@ -86,7 +87,7 @@
 	<br /><br />
 	<div id="page-footer">
 		<footer>
-			<small>Copyright &copy; <a href="https://github.com/samuelts/srun3k-client/">Samuelts</a></small>
+			<small>&copy; Authored by <a href="https://github.com/samuelts/srun3k-client/">Samuelts</a></small>
 		</footer>
 	</div>
 </body>
