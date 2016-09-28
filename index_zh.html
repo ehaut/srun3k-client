@@ -1,8 +1,14 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
-
 <head>
-	<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="author" content="Noisky">
+<meta name="copyright" content="Noisky&#39;s Laboratory">
+<meta name="ViewPort" content="initial-scale=1, minimum-scale=1, width=device-width">
+<meta name="HandheldFriendly" content="true">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="renderer" content="webkit">
+	
 	<title>校园网登录器</title>
 
 	<script>
@@ -35,6 +41,10 @@
 		function logout_init() {
 			document.getElementById("logout_ac_id").value = document.getElementById("login_ac_id").value;
 		}
+		
+		function openurl(url) {
+			window.location.href = url;
+		}
 	</script>
 
 	<style type="text/css">
@@ -49,7 +59,9 @@
 		body,
 		p,
 		h2,
+	
 		div {
+		text-align:center;
 			margin: 0;
 			padding: 0
 		}
@@ -61,7 +73,9 @@
 			-webkit-user-select: none;
 			-moz-user-select: none;
 			-ms-user-select: none
+			margin:0 auto;
 		}
+
 		
 		html {
 			font: 12px "Segoe UI", "Microsoft YaHei", FreeSans, Arimo, "Droid Sans", "Hiragino Sans GB", "Hiragino Sans GB W3", Arial, sans-serif
@@ -135,6 +149,19 @@
 			color: lightblue;
 			text-decoration: none;
 		}
+		
+		.m{
+		float:left;
+		}
+		.n{
+		margin-left:20px;
+		}
+		.mn {
+		padding-bottom:10px;
+		width:120px;
+		margin:0px auto;
+		}
+		
 	</style>
 </head>
 
@@ -144,44 +171,51 @@
 		<div class="box">
 			<h2>校园网客户端</h2>			
 			<form action="http://172.16.154.130:69/cgi-bin/srun_portal" method="POST" onsubmit="login_init()">
-				<input type="hidden" name="action" value="login" /> <p class="main">用户名:
-				<input id="username" /><br />
-				<input type="hidden" id="real_username" name="username" /> 密码:
-				<input id="password" type="password" /><br />
-				<input type="hidden" id="real_password" name="password" />
-				<input type="hidden" name="drop" value="0" />
-				<input type="hidden" name="pop" value="1" />
-				<input type="hidden" name="type" value="2" />
-				<input type="hidden" name="n" value="117" />
-				<input type="hidden" name="mbytes" value="0" />
-				<input type="hidden" name="minutes" value="0" /> ac_id:
-				<input type="text" name="ac_id" value="1" id="login_ac_id" /><br /></p>
-				<input type="submit" value="登录" />
+				<input type="hidden" name="action" value="login"> <p class="main">用户名:
+				<input id="username"><br>
+				<input type="hidden" id="real_username" name="username"> 密码:
+				<input id="password" type="password"><br>
+				<input type="hidden" id="real_password" name="password">
+				<input type="hidden" name="drop" value="0">
+				<input type="hidden" name="pop" value="1">
+				<input type="hidden" name="type" value="2">
+				<input type="hidden" name="n" value="117">
+				<input type="hidden" name="mbytes" value="0">
+				<input type="hidden" name="minutes" value="0"> Ac_id:
+				<input type="text" name="ac_id" value="1" id="login_ac_id"><br></p>
+				<div class="mn">
+				<div>
+				<input class="m" style="width:50px;" type="submit" value="登录">
+				</div>
 			</form>
+			
 
 			<!-- 注销 -->
 			<form action="http://172.16.154.130:69/cgi-bin/srun_portal" method="POST" onsubmit="logout_init()">
-				<input type="hidden" name="type" value="2" />
-				<input type="hidden" name="username" value="logout" />
-				<input type="hidden" name="action" value="logout" />
-				<input type="hidden" name="ac_id" id="logout_ac_id" />
-				<input type="hidden" name="mac" />
-				<input type="submit" value="注销" />
-			</form>
+				<input type="hidden" name="type" value="2">
+				<input type="hidden" name="username" value="logout">
+				<input type="hidden" name="action" value="logout">
+				<input type="hidden" name="ac_id" id="logout_ac_id">
+				<input type="hidden" name="mac">
+				<div>
+				<input class="n" style="width:50px;" type="submit" value="注销">
+				</div>
+				
+			</form></div>
+			
 
 			<!-- 查看当前登录状态 -->
-			<form action="http://172.16.154.130/cgi-bin/rad_user_info" method="GET">
-				<input type="submit" value="点击查看登录状态">
-			</form>
-			<pre>如果提示 <i>"login_error#INFO failed, BAS respond timeout."</i>， 更改 <b>Ac_id</b> 的值然后重试。通常来说，这个值是 <b>1</b> 或者 <b>2</b>。<br></pre>
+			<button onclick="openurl(&#39;http://172.16.154.130/cgi-bin/rad_user_info&#39;)">登陆状态</button>
+			<button onclick="openurl(&#39;http://172.16.154.130:8800/&#39;)">自服务</button>
+			<br>
+		        <br><p>请右键另存为到本地后使用</p>
+                <pre>如果提示 "login_error#INFO failed, BAS respond timeout"，更改 <b>Ac_id</b> 的值然后重试。通常来说，这个值是 <b>1</b> 或者 <b>2</b>。<br></pre>
 		</div>
 
 	</div>
 
-	<br /><br />
-	<p class="foot">&copy; Authored by <b><font><a href="https://github.com/samuelts/srun3k-client/">Samuelts</a></font></b>
-		| Beautified by <b><font><a href="https://www.noisky.cn/">Noisky</a></font></b></a>
-	</p>
-</body>
+	<br><br>
+	<p class="foot">© Authored by <b><font><a href="https://github.com/samuelts/srun3k-client/">Samuelts</a></font></b> | Beautified by <b><font><a href="https://www.noisky.cn/">Noisky</a></font></b></p>
 
-</html>
+
+</body></html>
