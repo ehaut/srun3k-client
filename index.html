@@ -6,18 +6,15 @@
 	<title>校园网登录器</title>
 
 	<script>
-		function login_init() {
-			// usrename_encrypt
+		function username_encrypt(username) {
 			var username_crypto = "";
-			var username = document.getElementById("username").value;
 			for (var i = 0; i < username.length; ++i) {
 				username_crypto += String.fromCharCode(username.charCodeAt(i) + 4);
 			}
-			document.getElementById("real_username").value = "{SRUN3}\r\n" + username_crypto;
+			return "{SRUN3}\r\n" + username_crypto;
+		}
 
-			// password_encrypt
-			var key = "1234567890";
-			var password = document.getElementById("password").value;
+		function password_encrypt(password, key = '1234567890') {
 			var password_crypto = "";
 			for (var i = 0; i < password.length; ++i) {
 				var ki = password.charCodeAt(i) ^ key.charCodeAt(key.length - i % key.length - 1);
@@ -29,48 +26,74 @@
 					password_crypto += _h + _l;
 				}
 			}
-			document.getElementById("real_password").value = password_crypto;
+			return password_crypto;
 		}
 
-		function logout_init() {
-			document.getElementById("logout_ac_id").value = document.getElementById("login_ac_id").value;
-		}
+        function form_submit(action, method, params) {
+            var f = document.createElement("form");
+            f.action = action;
+            f.method = method;
+
+            for (var i = 0; i < params.length; i++) {
+                var input = document.createElement("input");
+				input.type = 'hidden';
+                input.name = params[i].name;
+                input.value = params[i].value;
+                f.appendChild(input);
+            }
+
+            document.body.appendChild(f);
+            f.submit();
+            document.body.removeChild(f);
+        }
 
 		function openurl(url) {
 			window.location.href = url;
+		}
+
+		function login() {
+			var username = username_encrypt(document.getElementById('username').value);
+			var password = password_encrypt(document.getElementById('password').value);
+			
+			form_submit('http://172.16.154.130:69/cgi-bin/srun_portal', 'post', [
+				{name: 'action', value: 'login'},
+				{name: 'username', value: username},
+				{name: 'password', value: password},
+				{name: 'ac_id', value: document.getElementById('ac_id').value},
+				{name: 'drop', value: 0},
+				{name: 'pop', value: 1},
+				{name: 'type', value: 2},
+				{name: 'n', value: 117},
+				{name: 'mbytes', value: 0},
+				{name: 'minutes', value: 0},
+				{name: 'mac', value: '00:00:00:00:00:00'},
+				{name: 'action', value: 'login'}
+			]);
+		}
+
+		function logout() {
+			form_submit('http://172.16.154.130:69/cgi-bin/srun_portal', 'post', [
+				{name: 'username', value: 'logout'},
+				{name: 'ac_id', value: document.getElementById('ac_id').value},
+				{name: 'mac', value: '00:00:00:00:00:00'},
+				{name: 'type', value: 2},
+				{name: 'action', value: 'logout'}
+			]);
 		}
 	</script>
 </head>
 
 <body>
 	<div class="container">
-		<form action="http://172.16.154.130:69/cgi-bin/srun_portal" method="POST" onsubmit="login_init()">
-			<h2>Login</h2>
-			<input type="hidden" name="action" value="login" /> username:
-			<input id="username" /><br />
-			<input type="hidden" id="real_username" name="username" /> password:
-			<input id="password" type="password" /><br />
-			<input type="hidden" id="real_password" name="password" />
-			<input type="hidden" name="drop" value="0" />
-			<input type="hidden" name="pop" value="1" />
-			<input type="hidden" name="type" value="2" />
-			<input type="hidden" name="n" value="117" />
-			<input type="hidden" name="mbytes" value="0" />
-			<input type="hidden" name="minutes" value="0" /> ac_id:
-			<input type="text" name="ac_id" value="1" id="login_ac_id" /><br />
-			If respond <i>"login_error#INFO failed, BAS respond timeout."</i>, change your value of <b>ac_id</b> and try again. Generally, the value should be <b>1</b> or <b>2</b>.<br />
-			<input type="submit" class="btn btn-primary" value="Login" />
-		</form>
-
-		<!-- 注销 -->
-		<form action="http://172.16.154.130:69/cgi-bin/srun_portal" method="POST" onsubmit="logout_init()">
-			<input type="hidden" name="type" value="2" />
-			<input type="hidden" name="username" value="logout" />
-			<input type="hidden" name="action" value="logout" />
-			<input type="hidden" name="ac_id" id="logout_ac_id" />
-			<input type="hidden" name="mac" />
-			<input type="submit" class="btn btn-primary" value="Logout" />
-		</form>
+		<h2>Login</h2>
+		username:
+		<input id="username" /><br />
+		password:
+		<input id="password" type="password" /><br />
+		ac_id: <input type="number" value="1" id="ac_id" /><br />
+		If respond <i>"login_error#INFO failed, BAS respond timeout."</i>, change your value of <b>ac_id</b> and try again. Generally, the value should be <b>1</b> or <b>2</b>.<br />
+		<button onclick="login()">Login</button>
+		<button onclick="logout()">Logout</button>
 		<hr />
 
 		<!-- 管理功能 -->
