@@ -87,9 +87,11 @@
 <body>
 	<div class="container">
 		<h2>Login</h2>
-		username: <input id="username" /><br />
-		password: <input id="password" type="password" /><br />
-		ac_id: <input type="number" value="1" id="ac_id" /><br />
+		<form>
+			username: <input id="username" /><br />
+			password: <input id="password" type="password" /><br />
+			ac_id: <input type="number" value="1" id="ac_id" /><br />
+		</form>
 		If respond <i>"login_error#INFO failed, BAS respond timeout."</i>, change your value of <b>ac_id</b> and try again. Generally, the value should be <b>1</b> or <b>2</b>.<br />
 		<button onclick="login()">Login</button>
 		<button onclick="logout()">Logout</button>
@@ -109,7 +111,7 @@
 	<br /><br />
 	<div id="page-footer">
 		<footer>
-			<small>&copy; Authored by <a href="https://github.com/samuelts/srun3k-client/">Samuelts</a></small>
+			<small>&copy; Authored by <a href="https://github.com/matsuz/srun3k-client/">Matsuz</a></small>
 		</footer>
 	</div>
 </body>
