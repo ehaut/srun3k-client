@@ -2,8 +2,9 @@
 <html>
 
 <head>
-	<meta charset="utf-8" />
-	<meta name="author" content="matsuz" />
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+	<meta name="author" content="matsuz,matsu.sou@outlook.com" />
+	<meta name="save" content="history" />
 	<title>校园网登录器</title>
 
 	<script>
@@ -67,16 +68,20 @@
 				{name: 'n', value: 117},
 				{name: 'mbytes', value: 0},
 				{name: 'minutes', value: 0},
-				{name: 'mac', value: '00:00:00:00:00:00'},
+				{name: 'mac', value: document.getElementById('mac').value},
 				{name: 'action', value: 'login'}
 			]);
 		}
 
 		function logout() {
+			var username = document.getElementById('username').value;
+			if (username.length == 0) 
+				username = 'unknown_username';
+
 			form_submit('http://172.16.154.130:69/cgi-bin/srun_portal', 'post', [
-				{name: 'username', value: 'logout'},
+				{name: 'username', value: username},
 				{name: 'ac_id', value: document.getElementById('ac_id').value},
-				{name: 'mac', value: '00:00:00:00:00:00'},
+				{name: 'mac', value: document.getElementById('mac').value},
 				{name: 'type', value: 2},
 				{name: 'action', value: 'logout'}
 			]);
@@ -91,6 +96,7 @@
 			username: <input id="username" /><br />
 			password: <input id="password" type="password" /><br />
 			ac_id: <input type="number" value="1" id="ac_id" /><br />
+			mac_address: <input value="00:00:00:00:00:00" id="mac" /><br />
 		</form>
 		If respond <i>"login_error#INFO failed, BAS respond timeout."</i>, change your value of <b>ac_id</b> and try again. Generally, the value should be <b>1</b> or <b>2</b>.<br />
 		<button onclick="login()">Login</button>
@@ -111,7 +117,7 @@
 	<br /><br />
 	<div id="page-footer">
 		<footer>
-			<small>&copy; Authored by <a href="https://github.com/matsuz/srun3k-client/">Matsuz</a></small>
+			<small>Srun3k Client (v1.1.0) &copy; Authored by <a href="https://github.com/matsuz/srun3k-client/">Matsuz</a></small>
 		</footer>
 	</div>
 </body>
