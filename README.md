@@ -16,3 +16,8 @@ Srun3k Client written in HTML/JavsScript for haut network authorization
 
 自动判断路由器连接人数，无人连接时自动注销，有人连接时自动登录。  
 OpenWRT版完整支持Srun3k认证，支持心跳包保持连接。
+
+### 开发者指南
+> [Developer-Guide](https://github.com/matsuz/srun3k-client/wiki/Developer-Guide)
+
+校园网客户端开发者指南，详细讲解了校园网客户端的工作原理，教你打造自己的校园网客户端。
