@@ -1,3 +1,5 @@
+本项目不再维护，请使用 [srun3k-webextension](https://github.com/matsuz/srun3k-webextension)
+---
 # Srun3k Client
 Srun3k Client written in HTML/JavsScript for haut network authorization
 
