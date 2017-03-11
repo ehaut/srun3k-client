@@ -53,6 +53,14 @@ class MainWindow(QMainWindow):
     def __del__(self):
         self.tray_icon.hide()  # hide tray icon before exit
 
+    def icon_activated(self, reason):
+        if reason == QSystemTrayIcon.Trigger or \
+           reason == QSystemTrayIcon.DoubleClick:
+            if self.isHidden():
+                self.show()
+            else:
+                self.hide()
+
     def setAutoStartup(self):
         try:
             import winreg
@@ -125,6 +133,11 @@ class MainWindow(QMainWindow):
         self.status = QLabel('', self)
         self.status.move(15, 150)
 
+        hide = QPushButton('隐藏到后台', self)
+        hide.resize(hide.sizeHint())
+        hide.clicked.connect(self.hide)
+        hide.move(15, 190)
+
         quit = QPushButton('退出', self)
         quit.resize(quit.sizeHint())
         quit.clicked.connect(qApp.quit)
@@ -156,6 +169,8 @@ class MainWindow(QMainWindow):
         tray_menu.addAction(show_action)
         tray_menu.addAction(self.autostartup_action)
         tray_menu.addAction(quit_action)
+
+        self.tray_icon.activated.connect(self.icon_activated)
 
         self.tray_icon.setToolTip('Srun3k Client PyQt5')
         self.tray_icon.setContextMenu(tray_menu)
