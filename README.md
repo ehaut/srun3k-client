@@ -7,7 +7,7 @@
 
 ## Todo
 
-+ [ ] 开机启动 (Windows only)
++ [ ] 开机启动 (Windows)
 
 ## 如何安装
 
@@ -17,7 +17,7 @@ macOS 与 linux 版未经测试。如有问题，可[提交 issue][3].
 
 ### Windows
 
-从 [Releases](/Matsuz/srun3k-client/releases) 页面下载。
+从 [Releases](https://github.com/Matsuz/srun3k-client/releases) 页面下载。
 
 ### macOS
 
