@@ -1,0 +1,28 @@
+{
+    "accounts": {
+        "default": "username1",
+        "storage": {
+            "username1": "password",
+            "username2": "password"
+        }
+    },
+    "options": {
+        "start_on_boot": true,
+        "secret": "1234567890",
+        "acid": 1,
+        "mac": "00:00:00:00:00:00"
+    },
+    "server": {
+        "url": {
+            "portal": "http://172.16.154.130:69/cgi-bin/srun_portal",
+            "info": "http://172.16.154.130/cgi-bin/rad_user_info",
+            "getmsg": "http://172.16.154.130/get_msg.php",
+            "detect_acid": "http://172.16.154.130",
+            "account_settings": "http://172.16.154.130:8800"
+        },
+        "udp": {
+            "ip": "172.16.154.130",
+            "port": 3338
+        }
+    }
+}

@@ -1,0 +1,2 @@
+-r common.txt
+PyInstaller==3.2.1
