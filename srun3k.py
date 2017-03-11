@@ -6,18 +6,16 @@ import sys
 import json
 import requests
 
-# import requests
-
-config_str = '''{
+default_config = {
     "accounts": {
-        "default": null,
-        "storage": {}
+        "default": None,
+        "storage": {},
     },
     "options": {
-        "start_on_boot": false,
+        "start_on_boot": False,
         "secret": "1234567890",
         "acid": 1,
-        "mac": "00:00:00:00:00:00"
+        "mac": "00:00:00:00:00:00",
     },
     "server": {
         "url": {
@@ -25,14 +23,14 @@ config_str = '''{
             "info": "http://172.16.154.130/cgi-bin/rad_user_info",
             "getmsg": "http://172.16.154.130/get_msg.php",
             "detect_acid": "http://172.16.154.130",
-            "account_settings": "http://172.16.154.130:8800"
+            "account_settings": "http://172.16.154.130:8800",
         },
         "udp": {
             "ip": "172.16.154.130",
-            "port": 3338
+            "port": 3338,
         }
-    }
-}'''
+    },
+}
 
 
 class MainWindow(QMainWindow):
@@ -49,8 +47,17 @@ class MainWindow(QMainWindow):
         self.init_window()
         self.init_tray()
 
+        self.init_account()
+
     def __del__(self):
         self.tray_icon.hide()  # hide tray icon before exit
+
+    def init_account(self):
+        default = self.config['accounts']['default']
+        if default in self.config['accounts']['storage']:
+            password = self.config['accounts']['storage'][default]
+            self.username_edit.setText(default)
+            self.password_edit.setText(password)
 
     def init_window(self):
         username = QLabel('用户名:', self)
@@ -121,13 +128,30 @@ class MainWindow(QMainWindow):
         event.ignore()
         self.hide()
 
+    def save_config(self):
+        """保存配置文件"""
+        current_username = self.username_edit.text()
+        current_password = self.password_edit.text()
+        self.config['accounts']['default'] = current_username
+        self.config['accounts']['storage'][current_username] = current_password
+
+        with open('config.json', mode='w') as cf:
+            cf.write(json.dumps(self.config, indent=4))
+
     def login(self):
+        username = self.username_edit.text()
         password = self.password_edit.text()
+        if len(username) == 0 or len(password) == 0:
+            QMessageBox.information(self, 'Error', '用户名或密码为空!')
+            return
+
+        self.save_config()
+
         password_enc = self.password_encrypt(password,
                                              self.config['options']['secret'])
         payload = {
             "action": "login",
-            "username": self.username_encrypt(self.username_edit.text()),
+            "username": self.username_encrypt(username),
             "password": password_enc,
             "mac": self.config['options']['mac'],
             "ac_id": self.config['options']['acid'],
@@ -192,7 +216,7 @@ if __name__ == '__main__':
         cf = open('config.json')
     except IOError:
         QMessageBox.information(None, 'Error', '无法打开配置文件 config.json')
-        config = json.loads(config_str)
+        config = default_config
     else:
         config = json.loads(cf.read())
         cf.close()
