@@ -149,6 +149,11 @@ class MainWindow(QMainWindow):
         about.setOpenExternalLinks(True)
         about.move(190, 190)
 
+        version = QLabel('version 0.1.0', self)
+        version.setStyleSheet('QLabel { color: grey; }')
+        version.resize(version.sizeHint())
+        version.move(240, 215)
+
         self.setGeometry(300, 300, 350, 230)
         self.setWindowTitle('Srun3k PyQt5')
         self.show()
