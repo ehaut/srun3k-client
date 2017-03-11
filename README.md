@@ -7,7 +7,7 @@
 
 ## Todo
 
-+ [ ] 开机启动 (Windows)
++ [x] 开机启动 (Windows)
 
 ## 如何安装
 

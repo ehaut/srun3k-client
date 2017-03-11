@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, \
 
 import sys
 import json
+import os
 import requests
 
 default_config = {
@@ -12,7 +13,7 @@ default_config = {
         "storage": {},
     },
     "options": {
-        "start_on_boot": False,
+        "autostartup": False,
         "secret": "1234567890",
         "acid": 1,
         "mac": "00:00:00:00:00:00",
@@ -51,6 +52,34 @@ class MainWindow(QMainWindow):
 
     def __del__(self):
         self.tray_icon.hide()  # hide tray icon before exit
+
+    def setAutoStartup(self):
+        try:
+            import winreg
+            from zlib import crc32  # for hash
+        except ImportError:
+            return
+
+        file_name = sys.argv[0].split(os.path.pathsep)[-1]
+        dir_name = os.path.dirname(os.path.abspath(__file__))
+        path = os.path.join(dir_name, file_name)
+
+        key_name = 'Srun3kClient_' + str(crc32(path.encode()))
+        hkey = winreg.OpenKey(
+            winreg.HKEY_CURRENT_USER,
+            r'Software\Microsoft\Windows\CurrentVersion\Run',
+            access=winreg.KEY_SET_VALUE)
+        if self.autostartup_action.isChecked():
+            winreg.SetValueEx(hkey, key_name, 0, winreg.REG_SZ, path)
+        else:
+            try:
+                winreg.DeleteValue(hkey, key_name)
+            except FileNotFoundError:
+                pass  # 该键不存在，不进行处理
+        winreg.CloseKey(hkey)
+        self.config['options'][
+            'autostartup'] = self.autostartup_action.isChecked()
+        self.save_config()
 
     def init_account(self):
         default = self.config['accounts']['default']
@@ -101,6 +130,12 @@ class MainWindow(QMainWindow):
         quit.clicked.connect(qApp.quit)
         quit.move(96, 190)
 
+        about = QLabel('关于', self)
+        about_link = 'https://github.com/Matsuz/srun3k-client/tree/pyqt5'
+        about.setText("<a href='%s'>关于</a>" % about_link)
+        about.setOpenExternalLinks(True)
+        about.move(190, 190)
+
         self.setGeometry(300, 300, 350, 230)
         self.setWindowTitle('Srun3k PyQt5')
         self.show()
@@ -112,11 +147,14 @@ class MainWindow(QMainWindow):
 
         show_action = QAction('显示', self)
         quit_action = QAction('退出', self)
+        self.autostartup_action = QAction('开机启动', self, checkable=True)
         show_action.triggered.connect(self.show)
         quit_action.triggered.connect(qApp.quit)
+        self.autostartup_action.triggered.connect(self.setAutoStartup)
 
         tray_menu = QMenu()
         tray_menu.addAction(show_action)
+        tray_menu.addAction(self.autostartup_action)
         tray_menu.addAction(quit_action)
 
         self.tray_icon.setToolTip('Srun3k Client PyQt5')
@@ -132,8 +170,10 @@ class MainWindow(QMainWindow):
         """保存配置文件"""
         current_username = self.username_edit.text()
         current_password = self.password_edit.text()
-        self.config['accounts']['default'] = current_username
-        self.config['accounts']['storage'][current_username] = current_password
+        if len(current_username) > 0:
+            self.config['accounts']['default'] = current_username
+            self.config['accounts']['storage'][
+                current_username] = current_password
 
         with open('config.json', mode='w') as cf:
             cf.write(json.dumps(self.config, indent=4))
