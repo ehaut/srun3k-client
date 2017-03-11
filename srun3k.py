@@ -8,6 +8,32 @@ import requests
 
 # import requests
 
+config_str = '''{
+    "accounts": {
+        "default": null,
+        "storage": {}
+    },
+    "options": {
+        "start_on_boot": false,
+        "secret": "1234567890",
+        "acid": 1,
+        "mac": "00:00:00:00:00:00"
+    },
+    "server": {
+        "url": {
+            "portal": "http://172.16.154.130:69/cgi-bin/srun_portal",
+            "info": "http://172.16.154.130/cgi-bin/rad_user_info",
+            "getmsg": "http://172.16.154.130/get_msg.php",
+            "detect_acid": "http://172.16.154.130",
+            "account_settings": "http://172.16.154.130:8800"
+        },
+        "udp": {
+            "ip": "172.16.154.130",
+            "port": 3338
+        }
+    }
+}'''
+
 
 class MainWindow(QMainWindow):
     """
@@ -163,10 +189,13 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
 
     try:
-        with open('config.json') as cf:
-            config = json.loads(cf.read())
-    except Exception:
+        cf = open('config.json')
+    except IOError:
         QMessageBox.information(None, 'Error', '无法打开配置文件 config.json')
+        config = json.loads(config_str)
+    else:
+        config = json.loads(cf.read())
+        cf.close()
 
     srun3k = MainWindow(config)
     sys.exit(app.exec_())
