@@ -8,6 +8,7 @@
 ## Todo
 
 + [x] 开机启动 (Windows)
++ [ ] 自动检测 ACID
 + [ ] UDP 心跳包
 + [ ] 界面美化
 
@@ -43,7 +44,7 @@ linux 可按 macOS 的安装步骤安装。
 ~~~
 sudo apt install python3-pyqt5 python3-requests
 mkdir srun3k-pyqt5 && cd srun3k-pyqt5
-curl -sSL https://github.com/Matsuz/srun3k-client/archive/pyqt5.tar.gz | tar -x --strip-components=1
+curl -sSL https://github.com/Matsuz/srun3k-client/archive/pyqt5.tar.gz | tar -xz --strip=1
 python3 srun3k.py
 ~~~
 
