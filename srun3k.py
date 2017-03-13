@@ -170,6 +170,9 @@ class MainWindow(QMainWindow):
         quit_action.triggered.connect(qApp.quit)
         self.autostartup_action.triggered.connect(self.setAutoStartup)
 
+        self.autostartup_action.setChecked(
+            self.config['options']['autostartup'])
+
         tray_menu = QMenu()
         tray_menu.addAction(show_action)
         tray_menu.addAction(self.autostartup_action)
