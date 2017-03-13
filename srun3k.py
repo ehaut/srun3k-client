@@ -68,9 +68,7 @@ class MainWindow(QMainWindow):
         except ImportError:
             return
 
-        file_name = sys.argv[0].split(os.path.pathsep)[-1]
-        dir_name = os.path.dirname(os.path.abspath(__file__))
-        path = os.path.join(dir_name, file_name)
+        path = os.path.realpath(sys.executable)
 
         key_name = 'Srun3kClient_' + str(crc32(path.encode()))
         hkey = winreg.OpenKey(
@@ -198,7 +196,11 @@ class MainWindow(QMainWindow):
             self.config['accounts']['storage'][
                 current_username] = current_password
 
-        with open('config.json', mode='w') as cf:
+        path = 'config.json'
+        if os.name == 'nt':
+            path = os.path.join(
+                os.path.dirname(os.path.realpath(sys.executable)), path)
+        with open(path, mode='w') as cf:
             cf.write(json.dumps(self.config, indent=4))
 
     def login(self):
@@ -276,9 +278,11 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
 
     try:
-        cf = open('config.json')
+        dirname = os.path.dirname(os.path.realpath(sys.executable))
+        path = os.path.join(dirname, 'config.json')
+        cf = open(path)
     except IOError:
-        QMessageBox.information(None, 'Error', '无法打开配置文件 config.json')
+        QMessageBox.information(None, 'Error', '无法打开配置文件 %s' % path)
         config = default_config
     else:
         config = json.loads(cf.read())
