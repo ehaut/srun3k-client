@@ -1,6 +1,6 @@
 # Srun3k PyQt5
 
-[![GitHub release](https://img.shields.io/github/release/Matsuz/srun3k-client.svg?style=flat)]()
+[![GitHub release](https://img.shields.io/github/release/Matsuz/srun3k-client.svg?style=flat)](https://github.com/Matsuz/srun3k-client/releases)
 
 河南工业大学校园网客户端 desktop 版，基于 [Python][1] 3 与 [PyQt5][2]。
 
