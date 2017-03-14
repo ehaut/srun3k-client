@@ -2,8 +2,15 @@
 
 河南工业大学校园网客户端 desktop 版，基于 [Python][1] 3 与 [PyQt5][2]。
 
+> 网页版 ([gh-pages 分支][5]) 登录：
+> + [简约版][6] (English)
+> + [界面美化版][7] (Chinese)
+
 [1]: https://www.python.org/
 [2]: https://www.riverbankcomputing.com/software/pyqt/download5
+[5]: https://github.com/Matsuz/srun3k-client/tree/gh-pages
+[6]: http://matsuz.github.io/srun3k-client/
+[7]: http://matsuz.github.io/srun3k-client/index_zh.html
 
 ## Todo
 
@@ -20,7 +27,7 @@ macOS 与 linux 版未经测试。如有问题，可[提交 issue][3].
 
 ### Windows
 
-从 [Releases](https://github.com/Matsuz/srun3k-client/releases) 页面下载。
+从 [Releases](https://github.com/Matsuz/srun3k-client/releases/latest) 页面下载。
 
 ### macOS
 
