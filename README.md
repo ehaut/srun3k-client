@@ -9,9 +9,10 @@ Srun3k Client written in HTML/JavsScript for haut network authorization
 
 > **(网页版不支持心跳包，可能导致掉线)**
 
-+ 网页版 
-    + 原版(英文) [http://zengxs667.github.io/srun3k-client/](http://zengxs667.github.io/srun3k-client/)
-    + 中文版 [http://zengxs667.github.io/srun3k-client/index_zh.html](http://zengxs667.github.io/srun3k-client/index_zh.html)
++ 网页版
+  - 原版(英文) [http://zengxs667.github.io/srun3k-client/](http://zengxs667.github.io/srun3k-client/)
+  - 中文版 [http://zengxs667.github.io/srun3k-client/index_zh.html](http://zengxs667.github.io/srun3k-client/index_zh.html)
+
 + 离线版(将网页保存至本地使用浏览器打开)
 
 ---
