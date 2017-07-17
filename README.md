@@ -10,8 +10,8 @@ Srun3k Client written in HTML/JavsScript for haut network authorization
 > **(网页版不支持心跳包，可能导致掉线)**
 
 + 网页版 
-    + 原版(英文) [http://matsuz.github.io/srun3k-client/](http://matsuz.github.io/srun3k-client/)
-    + 中文版 [http://matsuz.github.io/srun3k-client/index_zh.html](http://matsuz.github.io/srun3k-client/index_zh.html)
+    + 原版(英文) [http://zengxs667.github.io/srun3k-client/](http://zengxs667.github.io/srun3k-client/)
+    + 中文版 [http://zengxs667.github.io/srun3k-client/index_zh.html](http://zengxs667.github.io/srun3k-client/index_zh.html)
 + 离线版(将网页保存至本地使用浏览器打开)
 
 ---
@@ -22,6 +22,6 @@ Srun3k Client written in HTML/JavsScript for haut network authorization
 OpenWRT版完整支持Srun3k认证，支持心跳包保持连接。
 
 ### 开发者指南
-> [Developer-Guide](https://github.com/matsuz/srun3k-client/wiki/Developer-Guide)
+> [Developer-Guide](https://github.com/zengxs667/srun3k-client/wiki/Developer-Guide)
 
 校园网客户端开发者指南，详细讲解了校园网客户端的工作原理，教你打造自己的校园网客户端。
