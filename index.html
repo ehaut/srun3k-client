@@ -3,10 +3,11 @@
 
 <head>
 	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
-	<meta name="author" content="matsuz,matsu.sou@outlook.com" />
+	<meta name="author" content="zengxs,xiangsong.zeng@gmail.com" />
 	<meta name="save" content="history" />
 	<title>校园网登录器</title>
 
+	<link rel="shortcut icon" type="image/png" href="data:img/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAABK0lEQVR4Ab3LwUpUYRwF8N+92r29iKKPUKDSovYFSsOEGxd3UNf1DIFQQUHPYOajyOCuKG3SeoTuzGz+wV18MB/T3QT+zurAOe7cffvO/TQ398OZoUqPgd8iy41dS5U+CuFCY02lsm5kLIT3Srlu/seBRYVG210yg26+ZZkdrbCLpPZLOPAvI+FGJdkXLsAbMyew0ApjYSg5FxowE1rI2qHwSTIR1sCJ1mvI2oZwLZkLlT61MPuPw0RY12dTuJJ8FkZY9V1k+WIFx8Kp5IUwVmDbdGHeeoDCpTCQ1G6FBmz7luZfPQRHwkQlYU9o7YBVT7zy0mMr4JGp8Ezmg9BqFBIUjrr5OzlldwljhzbUapuOXQrhrdJSe25FlomnetSGzlybmbpy6rl77thfv0iYemrko00AAAAASUVORK5CYII="/>
 	<script>
 		function username_encrypt(username) {
 			var username_crypto = "";
@@ -64,12 +65,11 @@
 				{name: 'ac_id', value: document.getElementById('ac_id').value},
 				{name: 'drop', value: 0},
 				{name: 'pop', value: 1},
-				{name: 'type', value: 2},
+				{name: 'type', value: 10},
 				{name: 'n', value: 117},
 				{name: 'mbytes', value: 0},
 				{name: 'minutes', value: 0},
 				{name: 'mac', value: document.getElementById('mac').value},
-				{name: 'action', value: 'login'}
 			]);
 		}
 
@@ -96,7 +96,7 @@
 			username: <input id="username" /><br />
 			password: <input id="password" type="password" /><br />
 			ac_id: <input type="number" value="1" id="ac_id" /><br />
-			mac_address: <input value="00:00:00:00:00:00" id="mac" /><br />
+			mac_address: <input value="02:00:00:00:00:00" id="mac" /><br />
 		</form>
 		If respond <i>"login_error#INFO failed, BAS respond timeout."</i>, change your value of <b>ac_id</b> and try again. Generally, the value should be <b>1</b> or <b>2</b>.<br />
 		<button onclick="login()">Login</button>
@@ -117,7 +117,7 @@
 	<br /><br />
 	<div id="page-footer">
 		<footer>
-			<small>Srun3k Client (v1.1.0) &copy; Authored by <a href="https://github.com/matsuz/srun3k-client/">Matsuz</a></small>
+			<small>Srun3k Client (v1.1.1) &copy; Authored by <a href="https://github.com/zeng-xs/srun3k-client/">ZengXS</a></small>
 		</footer>
 	</div>
 </body>
