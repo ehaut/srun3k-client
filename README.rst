@@ -10,8 +10,8 @@ Srun3k Client written in HTML/JavsScript for haut network authorization.
 
 - 网页版
 
-  - 原版(英文) http://zeng-xs.github.io/srun3k-client/
-  - 中文版 http://zeng-xs.github.io/srun3k-client/index_zh.html
+  - 原版 http://zeng-xs.github.io/srun3k-client/
+  - 界面美化版版 http://zeng-xs.github.io/srun3k-client/index_zh.html 界面主题提供者：@Noisky
 
 + 离线版(将网页保存至本地使用浏览器打开)
 
