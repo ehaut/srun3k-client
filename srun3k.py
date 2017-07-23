@@ -16,7 +16,7 @@ default_config = {
         "autostartup": False,
         "secret": "1234567890",
         "acid": 1,
-        "mac": "00:00:00:00:00:00",
+        "mac": "02:00:00:00:00:00",
     },
     "server": {
         "url": {
@@ -222,7 +222,7 @@ class MainWindow(QMainWindow):
             "ac_id": self.config['options']['acid'],
             "drop": 0,
             "pop": 1,
-            "type": 2,
+            "type": 10,
             "n": 117,
             "mbytes": 0,
             "minutes": 0,
@@ -237,7 +237,7 @@ class MainWindow(QMainWindow):
             "action": "logout",
             "username": self.username_edit.text(),
             "ac_id": self.config['options']['acid'],
-            "type": 2,
+            "type": 10,
         }
         r = self.session.post(
             self.config['server']['url']['portal'], data=payload)
@@ -279,7 +279,7 @@ if __name__ == '__main__':
 
     try:
         dirname = os.path.dirname(os.path.realpath(sys.executable))
-        path = os.path.join(dirname, 'config.json')
+        path = os.path.join(os.path.expanduser("~"), 'config.json')
         cf = open(path)
     except IOError:
         QMessageBox.information(None, 'Error', '无法打开配置文件 %s' % path)

@@ -1,18 +1,18 @@
 # Srun3k PyQt5
 
-[![GitHub release](https://img.shields.io/github/release/zengxs667/srun3k-client.svg?style=flat)](https://github.com/zengxs667/srun3k-client/releases)
+[![GitHub release](https://img.shields.io/github/release/zeng-xs/srun3k-client.svg?style=flat)](https://github.com/zeng-xs/srun3k-client/releases)
 
 河南工业大学校园网客户端 desktop 版，基于 [Python][1] 3 与 [PyQt5][2]。
 
 > 网页版 ([gh-pages 分支][5]) 登录：
-> + [简约版][6] (English)
-> + [界面美化版][7] (Chinese)
+> + [原版][6] (English)
+> + [界面美化版][7] (Chinese) 界面主题设计： @Noisky
 
 [1]: https://www.python.org/
 [2]: https://www.riverbankcomputing.com/software/pyqt/download5
 [5]: https://github.com/zengxs667/srun3k-client/tree/gh-pages
-[6]: http://zengxs667.github.io/srun3k-client/
-[7]: http://zengxs667.github.io/srun3k-client/index_zh.html
+[6]: http://zeng-xs.github.io/srun3k-client/
+[7]: http://zeng-xs.github.io/srun3k-client/index_zh.html
 
 ## Todo
 
@@ -53,7 +53,7 @@ linux 可按 macOS 的安装步骤安装。
 ```bash
 sudo apt install python3-pyqt5 python3-requests
 mkdir srun3k-pyqt5 && cd srun3k-pyqt5
-curl -sSL https://github.com/zengxs667/srun3k-client/archive/pyqt5.tar.gz | tar -xz --strip=1
+curl -sSL https://github.com/zeng-xs/srun3k-client/archive/pyqt5.tar.gz | tar -xz --strip=1
 python3 srun3k.py
 ```
 
