@@ -19,6 +19,13 @@ Srun3k Client written in HTML/JavsScript for haut network authorization.
 
 --------
 
+QT版
+----
+
+    https://github.com/CHN-STUDENT/SRUN-3K-UI
+
+C++ with QT.
+
 桌面版 (PyQT)
 -------------
 
