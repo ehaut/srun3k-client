@@ -4,7 +4,7 @@ Srun3k Client
 
 Srun3k Client written in HTML/JavsScript for haut network authorization.
 
-    由于工作原因不再维护此项目，有意继续维护此项目的同学可邮件联系我。
+    由于工作原因不再维护此项目，目前本项目的维护工作已由 https://github.com/ehaut/ehaut 项目接替，其主页为 http://ehaut.cn
 
 河南工业大学校园网客户端（HTML/JavaScript版）
 
